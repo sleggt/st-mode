@@ -19,8 +19,9 @@
 	map))
 
 ;;;###autoload
-(add-to-list 'auto-mode-alist
-             '("\\.st\\'" . iec61131-mode))
+(add-to-list 'auto-mode-alist '("\\.st\\'" . iec61131-mode))
+(add-to-list 'auto-mode-alist '("\\.scl\\'" . iec61131-mode))
+(add-to-list 'auto-mode-alist '("\\.l5k\\'" . iec61131-mode))
 
 
 (defun iec61131-regex-endswith (seq)
@@ -41,7 +42,11 @@
        "\\|"
        (iec61131-regex-startswith
 	'("FUNCTION_BLOCK" "PROGRAM" "CONFIGURATION" "VAR"
-	  "VAR_INPUT" "VAR_OUTPUT"))))
+	  "VAR_INPUT" "VAR_OUTPUT"
+          ; ControlLogix additions
+          "CONTROLLER" "DATATYPE" "MODULE" "CONNECTION" "LOCAL_TAGS"
+          "ROUTINE" "ST_ROUTINE" "PARAMETERS" "ADD_ON_INSTRUCTION_DEFINITION"
+          "TAG"))))
 
 (defvar iec61131-indent-regex-1 nil "Regex for indentation decrement.")
 (setq iec61131-indent-regex-1
@@ -72,7 +77,25 @@
 	    "SINGLE" "STRUCT" "TASK" "THEN" "TO"
 	    "TYPE" "UNTIL" "VAR" "VAR_ACCESS" "VAR_CONFIG"
 	    "VAR_EXTERNAL" "VAR_GLOBAL" "VAR_INPUT" "VAR_IN_OUT"
-	    "VAR_TEMP" "WHILE" "WITH"))
+	    "VAR_TEMP" "WHILE" "WITH"
+            ; ControlLogix additions
+            "BIT"
+            ; LAD instructions TODO: add more
+            "XIC" "XIO" "OTE" "OTL" "OTU" "TON"
+            "MUL" "DIV"
+            "MOV"
+            "EQU" "NEQ" "LEG" "GEQ"
+            "JMP" "END"
+            ; Organisation
+            "CONTROLLER" "DATATYPE" "MODULE" "CONNECTION" "LOCAL_TAGS" "TAG"
+            "ROUTINE" "ST_ROUTINE" "PARAMETERS" "ADD_ON_INSTRUCTION_DEFINITION"
+            "ADD_ON_INSTRUCTION" "FBD_ROUTINE" "WIRE" "PIDE_BLOCK"
+            "TASK" "CONFIG" "TREND" "PEN" "QUICK_WATCH"
+            "END_CONTROLLER" "END_DATATYPE" "END_MODULE" "END_CONNECTION" "END_LOCAL_TAGS" "END_TAG"
+            "END_ROUTINE" "END_ST_ROUTINE" "END_PARAMETERS" "END_ADD_ON_INSTRUCTION_DEFINITION"
+            "END_ADD_ON_INSTRUCTION" "END_FBD_ROUTINE" "END_WIRE" "END_PIDE_BLOCK"
+            "END_TASK" "END_CONFIG" "END_TREND" "END_PEN" "END_QUICK_WATCH"
+            ))
 
 
 (defvar iec61131-multi-line-comment-regex nil
