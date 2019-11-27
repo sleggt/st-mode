@@ -42,7 +42,8 @@
        "\\|"
        (iec61131-regex-startswith
 	'("FUNCTION_BLOCK" "PROGRAM" "CONFIGURATION" "VAR"
-	  "VAR_INPUT" "VAR_OUTPUT"
+	  "VAR_INPUT" "VAR_OUTPUT" "VAR_IN_OUT"
+          "BEGIN" "DATA_BLOCK" "CONST"
           ; ControlLogix additions
           "CONTROLLER" "DATATYPE" "MODULE" "CONNECTION" "LOCAL_TAGS"
           "ROUTINE" "ST_ROUTINE" "PARAMETERS" "ADD_ON_INSTRUCTION_DEFINITION"
@@ -78,6 +79,8 @@
 	    "TYPE" "UNTIL" "VAR" "VAR_ACCESS" "VAR_CONFIG"
 	    "VAR_EXTERNAL" "VAR_GLOBAL" "VAR_INPUT" "VAR_IN_OUT"
 	    "VAR_TEMP" "WHILE" "WITH"
+            "BEGIN" "DATA_BLOCK" "CONST"
+            "END_BEGIN" "END_DATA_BLOCK" "END_CONST"
             ; ControlLogix additions
             "BIT"
             ; LAD instructions TODO: add more
@@ -157,6 +160,7 @@
 
 (defun iec61131-indent-line ()
   "Identation function for iec61131-mode."
+  (setq tab-width 4)  ;; TODO this should probably be done differently
   (interactive)
   (beginning-of-line)
   (let ((not-indented t)
